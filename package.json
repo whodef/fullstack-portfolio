@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && npm run fix-paths",
-    "fix-paths": "find docs -name '*.html' -exec sed -i 's|/_next/|./docs/_next/|g' {} + && find docs -name '*.html' -exec sed -i 's|href=\"/\"|href=\"./\"|g' {} +",
+    "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next build",
+    "deploy": "next build && touch docs/.nojekyll"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.0.1",
