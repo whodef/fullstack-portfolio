@@ -6,8 +6,10 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-
+  basePath: '/fullstack-portfolio',
+  assetPrefix: '/fullstack-portfolio/',
+  
   distDir: 'docs',
 }
 
-export default nextConfig;
+export default nextConfig

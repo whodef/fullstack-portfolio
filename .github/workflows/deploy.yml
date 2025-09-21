@@ -1,4 +1,4 @@
-name: Build and deploy to GitHub Pages (copy method)
+name: Build and deploy to GitHub Pages
 
 on:
   push:
@@ -23,16 +23,11 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Copy build to docs
-        run: |
-          rm -rf docs
-          cp -r out docs
-          touch docs/.nojekyll
+      - name: Add .nojekyll file
+        run: touch docs/.nojekyll
 
-      - name: Commit and push
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add docs
-          git diff --staged --quiet || git commit -m "Deploy to GitHub Pages"
-          git push
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs

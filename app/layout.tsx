@@ -12,6 +12,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru" suppressHydrationWarning>
+      <head>
+        <base href="/fullstack-portfolio/" />
+      </head>
       <body className="min-h-screen text-gray-900 dark:text-gray-100 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-[#0b0f14] dark:to-[#0a0c10]">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="flex min-h-screen flex-col">
