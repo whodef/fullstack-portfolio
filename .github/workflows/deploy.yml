@@ -1,4 +1,4 @@
-name: Build and deploy to gh-pages
+name: Build and deploy to GitHub Pages (copy method)
 
 on:
   push:
@@ -11,8 +11,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
@@ -25,9 +23,16 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: ./out
+      - name: Copy build to docs
+        run: |
+          rm -rf docs
+          cp -r out docs
+          touch docs/.nojekyll
+
+      - name: Commit and push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add docs
+          git diff --staged --quiet || git commit -m "Deploy to GitHub Pages"
+          git push
